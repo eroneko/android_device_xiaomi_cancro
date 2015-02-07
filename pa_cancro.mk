@@ -1,4 +1,4 @@
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2014 ParanoidAndroid Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
+# Check for target product
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+ifeq (pa_cancro,$(TARGET_PRODUCT))
+
+# OVERLAY_TARGET adds overlay asset source
+OVERLAY_TARGET := pa_xxhdpi
+
+# Build paprefs from sources
+PREFS_FROM_SOURCE ?= false
+
+# Inherit telephony common stuff
+$(call inherit-product, vendor/pa/configs/telephony.mk)
+
+# Include AOSPA common configuration
+include vendor/pa/main.mk
 
 # Inherit from cancro device
 $(call inherit-product, device/xiaomi/cancro/cancro.mk)
 
 # Enhanced NFC
 $(call inherit-product, vendor/pa/config/nfc_enhanced.mk)
-
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/pa/config/common_full_phone.mk)
 
 PRODUCT_NAME := pa_cancro
 PRODUCT_DEVICE := cancro
@@ -37,8 +43,6 @@ PRODUCT_MODEL := MI 4C
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=cancro PRODUCT_NAME=cancro
-
-TARGET_CONTINUOUS_SPLASH_ENABLED := true
 
 ## Use the latest approved GMS identifiers unless running a signed build
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_FINGERPRINT=Xiaomi/cancro/cancro:5.0/LRX21M/4.12.8:userdebug/test-keys PRIVATE_BUILD_DESC="cancro-userdebug 5.0 LRX21M 4.12.8 test-keys"
