@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-add_lunch_combo cm_cancro-userdebug
+add_lunch_combo pa_cancro-userdebug
 
 # Run device patches on the tree
 sh device/xiaomi/cancro/patches/apply.sh
