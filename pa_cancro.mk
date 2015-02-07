@@ -31,9 +31,6 @@ include vendor/pa/main.mk
 # Inherit from cancro device
 $(call inherit-product, device/xiaomi/cancro/cancro.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/pa/config/nfc_enhanced.mk)
-
 PRODUCT_NAME := pa_cancro
 PRODUCT_DEVICE := cancro
 PRODUCT_BRAND := xiaomi
